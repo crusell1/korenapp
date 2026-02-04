@@ -17,10 +17,15 @@ export const defaultSongs = [
 
 // Statusarna (en per låt)
 export const statuses = [
-  { key: "practice", label: "Öva mycket!", emoji: "🔴" },
-  { key: "notes", label: "Kan med noter", emoji: "🟡" },
-  { key: "memory", label: "Kan utantill", emoji: "🟢" },
-  { key: "koreo", label: "Kan med koreografi", emoji: "🟣" },
+  { key: "practice", label: "Öva mycket!", short: "Öva!", emoji: "🔴" },
+  { key: "notes", label: "Kan med noter", short: "Noter", emoji: "🟡" },
+  { key: "memory", label: "Kan utantill", short: "Utantill", emoji: "🟢" },
+  {
+    key: "koreo",
+    label: "Kan med koreografi",
+    short: "Koreo",
+    emoji: "🟣",
+  },
 ];
 
 // Vilka räknas som “klara” i progress?

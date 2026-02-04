@@ -114,14 +114,19 @@ function renderTable(rows) {
       <table>
         <thead>
           <tr>
-            <th style="width:70px;">Nr</th>
-            <th>Låt</th>
-            ${statuses
-              .map(
-                (s) =>
-                  `<th class="center" style="width:160px;">${s.label}</th>`,
-              )
-              .join("")}
+            <th class="colNr">Nr</th>
+<th class="colSong">Låt</th>
+${statuses
+  .map(
+    (s) => `
+    <th class="center colStatus">
+      <span class="thLong">${s.label}</span>
+      <span class="thShort">${s.short}</span>
+    </th>
+  `,
+  )
+  .join("")}
+
           </tr>
         </thead>
         <tbody>
@@ -138,9 +143,10 @@ function renderRow(song, number) {
 
   return `
     <tr class="${rowClass}">
-      <td>${number}</td>
+      <td class="colNr">${number}</td>
 
-      <td class="songTitle">
+<td class="songTitle colSong">
+
         <a class="songLink" href="#song-${song.id}">
           ${escapeHtml(song.title)}
         </a>
@@ -150,7 +156,8 @@ function renderRow(song, number) {
         .map((s) => {
           const checked = currentStatus === s.key ? "checked" : "";
           return `
-            <td class="center">
+            <td class="center colStatus">
+
               <input
                 class="radio"
                 type="radio"
@@ -184,12 +191,19 @@ function renderAddSong() {
 --------------------------- */
 
 function renderSongDetail(song) {
+  const theme = document.documentElement.dataset.theme || "dark";
+  const checkedAttr = theme === "dark" ? "checked" : "";
+
   return `
     <section class="panel">
       <div class="detailTop">
         <button class="btn" id="backBtn">← Tillbaka</button>
+
+        
+
         ${song.isCustom ? `<button class="btn dangerMini" id="deleteSongBtn" data-song-id="${song.id}">🗑️ Ta bort</button>` : ""}
       </div>
+
 
       <div class="detailBlock">
         <label class="label">Titel</label>

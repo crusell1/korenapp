@@ -45,11 +45,28 @@ body {
   background: var(--bg);
   color: var(--text);
 }
+/* =========================
+   APP-BAKGRUND
+   ========================= */
 
-.container {
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 20px;
+/* Light mode */
+:root[data-theme="light"] .container {
+  min-height: 100vh;
+  background: radial-gradient(
+    circle,
+    rgba(228, 238, 174, 1) 0%,
+    rgba(148, 209, 233, 1) 100%
+  );
+}
+
+/* Dark mode – mörkare variant */
+:root[data-theme="dark"] .container {
+  min-height: 100vh;
+  background: radial-gradient(
+    circle,
+    rgba(32, 46, 40, 1) 0%,
+    rgba(20, 28, 46, 1) 100%
+  );
 }
 
 .header h1 {
@@ -129,12 +146,15 @@ button.danger {
 button.danger:hover {
   background: rgba(239, 68, 68, 0.12);
 }
-.panel {
+.panel,
+.tableWrap {
   margin-bottom: 14px;
   padding: 14px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 12px;
+  position: relative;
+  z-index: 1;
 }
 
 .topRow {
@@ -390,6 +410,7 @@ tr.row-none td {
   justify-content: space-between;
   gap: 10px;
   margin-bottom: 14px;
+  align-items: center;
 }
 
 .detailBlock {
@@ -590,25 +611,6 @@ tr.row-none td {
   color: rgba(19, 19, 19, 0.55);
 }
 
-.SearchPill__input {
-  width: calc(100% - 20px);
-  height: 42px;
-  border: none;
-  outline: none;
-
-  background-color: rgba(255, 255, 255, 0.92);
-  border-radius: 30px;
-  padding-left: 15px;
-
-  letter-spacing: 0.3px;
-  color: rgb(19, 19, 19);
-  font-size: 14px;
-}
-
-/* placeholder */
-.SearchPill__input::placeholder {
-  color: rgba(19, 19, 19, 0.55);
-}
 /* Light mode: ge progressbaren en tydlig border */
 :root[data-theme="light"] .progressBar {
   background: rgba(15, 23, 42, 0.06);
@@ -618,4 +620,74 @@ tr.row-none td {
 /* Light mode: gör fyllnaden lite renare (valfritt men snyggt) */
 :root[data-theme="light"] .progressFill {
   background: rgba(34, 197, 94, 0.85);
+}
+/* Gör tabellen “komprimerbar” så den får plats på mobil */
+table {
+  table-layout: fixed;
+}
+
+/* Standard (desktop) */
+.colNr {
+  width: 52px;
+}
+.colStatus {
+  width: 120px; /* desktop: okej med rubriker */
+}
+
+/* Mobil: krymp statuskolumnerna så ALLT får plats utan scroll */
+@media (max-width: 640px) {
+  .colNr {
+    width: 34px;
+  }
+
+  .colStatus {
+    width: 44px; /* detta är nyckeln */
+  }
+
+  th.colStatus {
+    font-size: 11px;
+    line-height: 1.1;
+    padding: 8px 6px;
+    white-space: nowrap; /* låt rubriken brytas */
+  }
+
+  td.colStatus {
+    padding: 10px 6px;
+  }
+
+  /* krymp radioknappar lite */
+  .radio {
+    transform: scale(0.92);
+  }
+
+  /* Låt-titeln får ta resten + brytas snyggt */
+  .colSong a {
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* max 2 rader */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
+    line-height: 1.15;
+  }
+}
+/* Visa långa rubriker på desktop */
+.thShort {
+  display: none;
+}
+
+/* Visa korta rubriker på mobil */
+@media (max-width: 640px) {
+  .thLong {
+    display: none;
+  }
+  .thShort {
+    display: inline;
+  }
+
+  th.colStatus {
+    white-space: nowrap; /* gör rubriken “inte tjock” */
+    padding: 8px 4px;
+    font-size: 11px;
+    line-height: 1.05;
+  }
 }

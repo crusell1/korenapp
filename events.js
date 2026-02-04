@@ -23,10 +23,8 @@ export function initEvents() {
     // Theme toggle (checked = dark)
     if (el.id === "themeToggle") {
       const wantsDark = el.checked;
-
       document.documentElement.dataset.theme = wantsDark ? "dark" : "light";
       localStorage.setItem("koren-theme", wantsDark ? "dark" : "light");
-
       renderApp();
       return;
     }
