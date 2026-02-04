@@ -6,6 +6,28 @@
   --muted: #94a3b8;
   --danger: #ef4444;
 }
+/* Ljust tema (inte vitt) */
+:root[data-theme="light"] {
+  --border: rgba(15, 23, 42, 0.18);
+  --bg: #e9eef5; /* ljus kall ton (inte vit) */
+  --card: #f2f6fb; /* “kort”-yta */
+  --text: #0f172a; /* mörk text */
+  --muted: #475569;
+  --danger: #dc2626;
+}
+/* Inputs/ytor ska funka i både dark + light */
+.textInput,
+.textArea {
+  background: color-mix(in oklab, var(--bg) 70%, #000 30%);
+  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent 30%);
+  color: var(--text);
+}
+
+:root[data-theme="light"] .textInput,
+:root[data-theme="light"] .textArea {
+  background: rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(15, 23, 42, 0.14);
+}
 
 * {
   box-sizing: border-box;
@@ -219,6 +241,7 @@ button.danger:hover {
   display: grid;
   grid-template-columns: 1fr;
   gap: 10px;
+  justify-items: center;
 }
 
 .filters {
@@ -399,4 +422,200 @@ tr.row-none td {
 
 .dangerMini {
   border-color: rgba(239, 68, 68, 0.5);
+}
+.progressRight {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* From Uiverse.io by andrew-demchenk0 */
+.switch {
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 64px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #73c0fc;
+  transition: 0.4s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 30px;
+  width: 30px;
+  border-radius: 20px;
+  left: 2px;
+  bottom: 2px;
+  z-index: 2;
+  background-color: #e8e8e8;
+  transition: 0.4s;
+}
+
+.sun svg {
+  position: absolute;
+  top: 6px;
+  left: 36px;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+}
+
+.moon svg {
+  fill: #73c0fc;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+}
+
+.sun svg {
+  animation: rotate 15s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.moon svg {
+  animation: tilt 5s linear infinite;
+}
+
+@keyframes tilt {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.input:checked + .slider {
+  background-color: #183153;
+}
+
+.input:focus + .slider {
+  box-shadow: 0 0 1px #183153;
+}
+
+.input:checked + .slider:before {
+  transform: translateX(30px);
+}
+/* Light mode: behåll chip-färgerna, lägg bara kant + liten "inset"-skugga */
+:root[data-theme="light"] .chip {
+  border: 1.5px solid rgba(15, 23, 42, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+}
+
+/* Light mode: aktivt chip tydligare */
+:root[data-theme="light"] .chip.active {
+  border-color: rgba(15, 23, 42, 0.45);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.65),
+    0 1px 6px rgba(15, 23, 42, 0.1);
+}
+
+/* Light mode: hover (valfritt men nice) */
+:root[data-theme="light"] .chip:hover {
+  border-color: rgba(15, 23, 42, 0.55);
+}
+/* --- Sök "pill" (som din bild) --- */
+/* --- Sök "pill" (full bredd) --- */
+.SearchPill {
+  width: 100%; /* <-- detta gör att den sträcker sig hela vägen */
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 30px;
+  overflow: hidden;
+  cursor: text;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(227, 213, 255, 0.9),
+    rgba(255, 231, 231, 0.9)
+  );
+
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.SearchPill__input {
+  width: calc(100% - 20px); /* fyller pillen */
+  height: 42px;
+  border: none;
+  outline: none;
+
+  background-color: rgba(255, 255, 255, 0.92);
+  border-radius: 30px;
+  padding-left: 15px;
+
+  letter-spacing: 0.3px;
+  color: rgb(19, 19, 19);
+  font-size: 14px;
+}
+
+.SearchPill__input::placeholder {
+  color: rgba(19, 19, 19, 0.55);
+}
+
+.SearchPill__input {
+  width: calc(100% - 20px);
+  height: 42px;
+  border: none;
+  outline: none;
+
+  background-color: rgba(255, 255, 255, 0.92);
+  border-radius: 30px;
+  padding-left: 15px;
+
+  letter-spacing: 0.3px;
+  color: rgb(19, 19, 19);
+  font-size: 14px;
+}
+
+/* placeholder */
+.SearchPill__input::placeholder {
+  color: rgba(19, 19, 19, 0.55);
+}
+/* Light mode: ge progressbaren en tydlig border */
+:root[data-theme="light"] .progressBar {
+  background: rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(15, 23, 42, 0.18);
+}
+
+/* Light mode: gör fyllnaden lite renare (valfritt men snyggt) */
+:root[data-theme="light"] .progressFill {
+  background: rgba(34, 197, 94, 0.85);
 }

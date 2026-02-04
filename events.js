@@ -20,6 +20,17 @@ export function initEvents() {
   document.addEventListener("change", (e) => {
     const el = e.target;
 
+    // Theme toggle (checked = dark)
+    if (el.id === "themeToggle") {
+      const wantsDark = el.checked;
+
+      document.documentElement.dataset.theme = wantsDark ? "dark" : "light";
+      localStorage.setItem("koren-theme", wantsDark ? "dark" : "light");
+
+      renderApp();
+      return;
+    }
+
     if (el.matches('input[type="radio"][data-song-id]')) {
       const songId = Number(el.dataset.songId);
       const status = el.dataset.status;

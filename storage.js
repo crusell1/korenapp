@@ -1,8 +1,8 @@
 import { defaultSongs } from "./songs.js";
 import { setSongs, state, clearAllStatuses } from "./state.js";
 
-const STORAGE_KEY_V2 = "koren-checklist-v3";
-const STORAGE_KEY_V1 = "koren-checklist-v1"; // gammal
+const STORAGE_KEY_V2 = "koren-checklist-v4";
+const STORAGE_KEY_V1 = "koren-checklist-v4"; // gammal
 
 function makeSong(song) {
   return {

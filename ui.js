@@ -31,11 +31,38 @@ export function renderApp() {
 --------------------------- */
 
 function renderTop(stats) {
+  const theme = document.documentElement.dataset.theme || "dark";
+  const checkedAttr = theme === "dark" ? "checked" : "";
+
   return `
     <section class="panel">
       <div class="progressHeader">
         <div class="progressTitle">Progress</div>
-        <div class="progressText">${stats.completed}/${stats.total} klara</div>
+        <div class="progressRight">
+  <div class="progressText">${stats.completed}/${stats.total} klara</div>
+
+  <label class="switch" title="Byt tema">
+    <span class="sun">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <g fill="none">
+          <circle cx="12" cy="12" r="5" fill="#ffd43b"></circle>
+          <path fill="#ffd43b" d="M21 13h-2a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2ZM5 13H3a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Zm14.071 7.071-1.414-1.414a1 1 0 0 1 1.414-1.414l1.414 1.414a1 1 0 0 1-1.414 1.414ZM6.343 6.343 4.929 4.929A1 1 0 0 1 6.343 3.515l1.414 1.414A1 1 0 1 1 6.343 6.343ZM13 21v-2a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0ZM13 5V3a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0Zm-6.657 14.657 1.414-1.414a1 1 0 0 0-1.414-1.414l-1.414 1.414a1 1 0 1 0 1.414 1.414ZM17.657 6.343a1 1 0 0 0 1.414 0l1.414-1.414A1 1 0 0 0 19.071 3.515l-1.414 1.414a1 1 0 0 0 0 1.414Z"></path>
+        </g>
+      </svg>
+    </span>
+
+    <span class="moon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+        <path d="M223.5 32c-123.5 0-223.5 100.3-223.5 224 0 123.5 100.1 224 223.5 224 60.6 0 115.6-24.3 155.1-63.8 8.2-8.2 2.8-22.3-8.9-23.1-6.1-.4-12.2-.9-18.3-1.8-99.8-14.6-176.8-100.1-176.8-204.3 0-50.3 18.2-96.5 48.4-132.1 7.4-8.7 0.5-22-10.9-22.1z"/>
+      </svg>
+    </span>
+
+    <input id="themeToggle" type="checkbox" class="input" ${checkedAttr}>
+
+    <span class="slider"></span>
+  </label>
+</div>
+
       </div>
 
       <div class="progressBar" aria-label="progress">
@@ -43,14 +70,18 @@ function renderTop(stats) {
       </div>
 
       <div style="margin-top: 12px;">
+      <div class="SearchPill">
         <input
           id="searchInput"
-          class="textInput"
+          class="SearchPill__input"
           type="text"
-          placeholder="🔍 Sök låt..."
+          placeholder="Sök låt..."
           value="${escapeHtml(state.ui.query)}"
         />
       </div>
+    </div>
+
+
 
       <div class="filters" style="margin-top: 10px;">
         <button class="chip ${isActive("all")}" data-filter="all">
