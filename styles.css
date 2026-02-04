@@ -45,12 +45,17 @@ body {
   background: var(--bg);
   color: var(--text);
 }
+.container {
+  padding: 14px;
+}
+
 /* =========================
    APP-BAKGRUND
    ========================= */
 
-/* Light mode */
+/* Light mode – din radial */
 :root[data-theme="light"] .container {
+  width: 100%;
   min-height: 100vh;
   background: radial-gradient(
     circle,
@@ -59,19 +64,29 @@ body {
   );
 }
 
-/* Dark mode – mörkare variant */
+/* Dark mode – mörk radial (samma känsla) */
 :root[data-theme="dark"] .container {
+  width: 100%;
   min-height: 100vh;
   background: radial-gradient(
     circle,
-    rgba(32, 46, 40, 1) 0%,
-    rgba(20, 28, 46, 1) 100%
+    rgba(30, 40, 35, 1) 0%,
+    rgba(15, 22, 40, 1) 100%
   );
 }
 
-.header h1 {
-  margin: 0 0 6px;
+:root[data-theme="dark"] .header h1 {
+  background: linear-gradient(
+    90deg,
+    rgba(229, 231, 235, 1),
+    rgba(148, 209, 233, 1)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
 }
+
 .muted {
   color: var(--muted);
 }
@@ -148,13 +163,20 @@ button.danger:hover {
 }
 .panel,
 .tableWrap {
-  margin-bottom: 14px;
-  padding: 14px;
-  background: var(--card);
-  border: 1px solid var(--border);
+  margin-bottom: 12px;
+  padding: 12px;
+
+  background: rgba(242, 246, 251, 0.88);
+  border: 1px solid rgba(15, 23, 42, 0.14);
+
   border-radius: 12px;
   position: relative;
   z-index: 1;
+}
+:root[data-theme="dark"] .panel,
+:root[data-theme="dark"] .tableWrap {
+  background: rgba(15, 23, 42, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .topRow {
@@ -598,7 +620,7 @@ tr.row-none td {
   border: none;
   outline: none;
 
-  background-color: rgba(255, 255, 255, 0.92);
+  background-color: rgba(255, 255, 255, 0.788);
   border-radius: 30px;
   padding-left: 15px;
 
@@ -690,4 +712,55 @@ table {
     font-size: 11px;
     line-height: 1.05;
   }
+}
+/* ===== LOGO (ring + glow, ingen platta) ===== */
+.logo {
+  display: flex;
+  justify-content: center;
+  margin: 14px 0 10px;
+}
+
+.logo img {
+  /* Större på desktop, bra på mobil */
+  height: clamp(150px, 10vw, 110px);
+  width: auto;
+
+  /* Ingen "kortplatta" */
+  padding: 0;
+  background: transparent;
+
+  /* Rundad */
+  border-radius: 80px;
+
+  /* Tunn ring så den känns som en logo-badge */
+  border: 2px solid rgba(255, 255, 255, 0.85);
+
+  /* Mjuk glow runt kanten (inte för mycket) */
+  box-shadow:
+    0 0 0 1px rgba(15, 23, 42, 0.1),
+    0 0 14px rgba(148, 209, 233, 0.55),
+    0 0 22px rgba(226, 235, 178, 0.521);
+
+  /* Snyggare på ljusa bakgrunder */
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.12));
+}
+:root[data-theme="dark"] .logo img {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 0 16px rgba(95, 41, 199, 0.55),
+    0 0 26px rgba(14, 210, 218, 0.4);
+
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.55));
+}
+/* Visa rätt logga beroende på tema */
+.logoDark {
+  display: none;
+}
+:root[data-theme="dark"] .logoLight {
+  display: none;
+}
+:root[data-theme="dark"] .logoDark {
+  display: inline-block;
 }
